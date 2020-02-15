@@ -1,48 +1,50 @@
 import React from 'react';
-import './movie.css';
 import PropTypes from 'prop-types';
 import LinesEllipsis from 'react-lines-ellipsis'
-function movie({title,poster, genres, synopsis}){
-    return(
+import './Movie.css';
+
+function Movie({title, poster, genres, synopsis}){
+    return (
         <div className="Movie">
-            <div className="Movie_columns">
-                <MoviePoster poster={poster} alt={title}/>
-            </div>
-            <div className="Movie_columns">
+            <div className="Movie__Column">
+                <MoviePoster poster={poster} alt={title} />
+            </div>   
+            <div className="Movie__Column">
                 <h1>{title}</h1>
-                <div className="Movie_Genres">
-                    {genres.map((genre,index) => <MovieGenre genre={genre} key={index} />)}
+                <div className="Movie__Genres">
+                    {genres.map((genre, index) => <MovieGenre genre={genre} key={index} />)}
                 </div>
-                <p className="Movie_Synopsis">
-                    <LinesEllipsis
+                <div className="Movie__Synopsis">
+                <LinesEllipsis
                     text={synopsis}
-                    ecllipsisk=' ...'
+                    maxLine='3'
+                    ellipsis='...'
                     trimRight
                     basedOn='letters'
-                    />
-                </p>
+                    />   
+                </div>
             </div>
-            
         </div>
     )
 }
+
 function MoviePoster({poster, alt}){
-    return(
-        <img src={poster} alt={alt} title={alt} className="Movie_Poster"/>
+    return (
+        <img src={poster} alt={alt} title={alt} className="Movie__Poster" />
     )
 }
 
 function MovieGenre({genre}){
-    return(
-        <span className="Movie_Genre">{genre} </span>
+    return (
+        <span className="Movie__Genre">{genre}</span>
     )
 }
 
-movie.propTypes = {
+Movie.propTypes = {
     title: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
-    genres:PropTypes.string.isRequired,
-    synopsis:PropTypes.string.isRequired
+    genres: PropTypes.array.isRequired,
+    synopsis: PropTypes.string.isRequired
 }
 
 MoviePoster.propTypes = {
@@ -53,4 +55,5 @@ MoviePoster.propTypes = {
 MovieGenre.propTypes ={
     genre: PropTypes.string.isRequired
 }
-export default movie
+
+export default Movie
